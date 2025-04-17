@@ -1,6 +1,6 @@
 package com.bookstore.api.resource;
 
-import com.bookstore.api.datastore.CustomerData;
+import com.bookstore.api.data.CustomerData;
 import com.bookstore.api.exception.CustomerNotFoundException;
 import com.bookstore.api.exception.InvalidInputException;
 import com.bookstore.api.model.Customer;
@@ -18,6 +18,13 @@ import java.util.List;
 public class CustomerResource {
     private static final Logger LOGGER = LoggerFactory.getLogger(CustomerResource.class);
 
+
+    /**
+     * Creates a new customer.
+     *
+     * @param customer the customer to create
+     * @return the created customer
+     */
     @POST
     public Response createCustomer(Customer customer) {
         LOGGER.info("Creating customer: {}", customer);
@@ -36,6 +43,12 @@ public class CustomerResource {
         return Response.status(Response.Status.CREATED).entity(createdCustomer).build();
     }
 
+    /**
+     * Retrieves all customers.
+     *
+     * @return a list of customers
+     */
+
     @GET
     public Response getAllCustomers() {
         LOGGER.info("Retrieving all customers");
@@ -43,6 +56,12 @@ public class CustomerResource {
         return Response.ok(customers).build();
     }
 
+    /**
+     * Retrieves a customer by ID.
+     *
+     * @param id the ID of the customer
+     * @return the customer with the specified ID
+     */
     @GET
     @Path("/{id}")
     public Response getCustomerById(@PathParam("id") int id) {
@@ -54,6 +73,13 @@ public class CustomerResource {
         return Response.ok(customer).build();
     }
 
+    /**
+     * Updates an existing customer.
+     *
+     * @param id       the ID of the customer to update
+     * @param customer the updated customer data
+     * @return the updated customer
+     */
     @PUT
     @Path("/{id}")
     public Response updateCustomer(@PathParam("id") int id, Customer customer) {
@@ -78,6 +104,13 @@ public class CustomerResource {
         LOGGER.info("Updated customer with ID: {}", id);
         return Response.ok(updatedCustomer).build();
     }
+
+    /**
+     * Deletes a customer by ID.
+     *
+     * @param id the ID of the customer to delete
+     * @return a response indicating the result of the operation
+     */
 
     @DELETE
     @Path("/{id}")

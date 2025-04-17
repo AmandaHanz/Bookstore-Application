@@ -7,6 +7,11 @@ import javax.ws.rs.ext.Provider;
 import java.util.HashMap;
 import java.util.Map;
 
+
+/**
+ * Exception mapper for IllegalArgumentException.
+ * Converts the exception to a JSON response with a 400 status code.
+ */
 @Provider
 public class IllegalArgumentExceptionMapper implements ExceptionMapper<IllegalArgumentException> {
     @Override

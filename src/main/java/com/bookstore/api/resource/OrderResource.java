@@ -1,12 +1,10 @@
 package com.bookstore.api.resource;
 
-import com.bookstore.api.datastore.BookData;
-import com.bookstore.api.datastore.CartData;
-import com.bookstore.api.datastore.CustomerData;
-import com.bookstore.api.datastore.OrderData;
+import com.bookstore.api.data.CartData;
+import com.bookstore.api.data.CustomerData;
+import com.bookstore.api.data.OrderData;
 import com.bookstore.api.exception.CartNotFoundException;
 import com.bookstore.api.exception.CustomerNotFoundException;
-import com.bookstore.api.model.Book;
 import com.bookstore.api.model.Cart;
 import com.bookstore.api.model.CartItem;
 import com.bookstore.api.model.Order;
@@ -26,6 +24,13 @@ import java.util.Map;
 public class OrderResource {
     private static final Logger LOGGER = LoggerFactory.getLogger(OrderResource.class);
 
+
+    /**
+     * Creates a new order for a specific customer.
+     *
+     * @param customerId the ID of the customer
+     * @return the created order
+     */
     @POST
     public Response createOrder(@PathParam("customerId") int customerId) {
         LOGGER.info("Creating order for customer ID: {}", customerId);
@@ -57,6 +62,13 @@ public class OrderResource {
         return Response.status(Response.Status.CREATED).entity(savedOrder).build();
     }
 
+    /**
+     * Retrieves all orders for a specific customer.
+     *
+     * @param customerId the ID of the customer
+     * @return a list of orders for the customer
+     */
+
     @GET
     public Response getAllOrders(@PathParam("customerId") int customerId) {
         LOGGER.info("Retrieving all orders for customer ID: {}", customerId);
@@ -68,6 +80,14 @@ public class OrderResource {
         List<Order> orders = OrderData.findOrdersByCustomerId(customerId);
         return Response.ok(orders).build();
     }
+
+    /**
+     * Retrieves an order by ID for a specific customer.
+     *
+     * @param customerId the ID of the customer
+     * @param orderId    the ID of the order
+     * @return the order with the specified ID for the customer
+     */
 
     @GET
     @Path("/{orderId}")

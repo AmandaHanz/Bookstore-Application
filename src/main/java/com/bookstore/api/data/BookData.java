@@ -1,4 +1,4 @@
-package com.bookstore.api.datastore;
+package com.bookstore.api.data;
 
 import com.bookstore.api.exception.InvalidInputException;
 import com.bookstore.api.model.Book;
@@ -21,23 +21,28 @@ public class BookData {
         return book;
     }
 
+    // Method to find a book by ID
     public static Book findBookById(int id) {
         return books.get(id);
     }
 
+    // Method to get all books
     public static List<Book> getAllBooks() {
         return new ArrayList<>(books.values());
     }
 
+    // Method to update a book
     public static Book updateBook(Book book) {
         books.put(book.getId(), book);
         return book;
     }
 
+    // Method to delete a book
     public static void deleteBook(int id) {
         books.remove(id);
     }
 
+    // Method to update the stock of a book
     public static void updateStock(int bookId, int newStock) {
         Book book = books.get(bookId);
         if (book == null) {

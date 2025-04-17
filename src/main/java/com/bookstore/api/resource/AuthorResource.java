@@ -1,7 +1,7 @@
 package com.bookstore.api.resource;
 
-import com.bookstore.api.datastore.AuthorData;
-import com.bookstore.api.datastore.BookData;
+import com.bookstore.api.data.AuthorData;
+import com.bookstore.api.data.BookData;
 import com.bookstore.api.exception.AuthorNotFoundException;
 import com.bookstore.api.exception.InvalidInputException;
 import com.bookstore.api.model.Author;
@@ -21,6 +21,13 @@ import java.util.stream.Collectors;
 public class AuthorResource {
     private static final Logger LOGGER = LoggerFactory.getLogger(AuthorResource.class);
 
+    /**
+     * Creates a new author.
+     *
+     * @param author the author to create
+     * @return the created author
+     */
+
     @POST
     public Response createAuthor(Author author) {
         LOGGER.info("Creating author: {}", author);
@@ -33,6 +40,12 @@ public class AuthorResource {
         return Response.status(Response.Status.CREATED).entity(createdAuthor).build();
     }
 
+    /**
+     * Retrieves all authors.
+     *
+     * @return a list of authors
+     */
+
     @GET
     public Response getAllAuthors() {
         LOGGER.info("Retrieving all authors");
@@ -40,6 +53,12 @@ public class AuthorResource {
         return Response.ok(authors).build();
     }
 
+    /**
+     * Retrieves an author by ID.
+     *
+     * @param id the ID of the author
+     * @return the author with the specified ID
+     */
     @GET
     @Path("/{id}")
     public Response getAuthorById(@PathParam("id") int id) {
@@ -51,6 +70,13 @@ public class AuthorResource {
         return Response.ok(author).build();
     }
 
+    /**
+     * Updates an existing author.
+     *
+     * @param id     the ID of the author to update
+     * @param author the updated author data
+     * @return the updated author
+     */
     @PUT
     @Path("/{id}")
     public Response updateAuthor(@PathParam("id") int id, Author author) {
@@ -69,6 +95,13 @@ public class AuthorResource {
         return Response.ok(updatedAuthor).build();
     }
 
+    /**
+     * Deletes an author by ID.
+     *
+     * @param id the ID of the author to delete
+     * @return a response indicating the result of the deletion
+     */
+
     @DELETE
     @Path("/{id}")
     public Response deleteAuthor(@PathParam("id") int id) {
@@ -80,6 +113,14 @@ public class AuthorResource {
         AuthorData.deleteAuthor(id); // Will throw IllegalStateException if author has books
         return Response.status(Response.Status.NO_CONTENT).build();
     }
+
+
+    /**
+     * Retrieves all books by a specific author.
+     *
+     * @param id the ID of the author
+     * @return a list of books by the specified author
+     */
 
     @GET
     @Path("/{id}/books")

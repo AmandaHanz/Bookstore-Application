@@ -9,6 +9,11 @@ import javax.ws.rs.ext.Provider;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Exception mapper for BookNotFoundException.
+ * Converts the exception to a JSON response with a 404 status code.
+ */
+
 @Provider
 public class BookNotFoundExceptionMapper implements ExceptionMapper<BookNotFoundException> {
     @Override

@@ -9,6 +9,11 @@ import javax.ws.rs.ext.Provider;
 import java.util.HashMap;
 import java.util.Map;
 
+
+/**
+ * Exception mapper for CustomerNotFoundException.
+ * Converts the exception to a JSON response with a 404 status code.
+ */
 @Provider
 public class CustomerNotFoundExceptionMapper implements ExceptionMapper<CustomerNotFoundException> {
     @Override

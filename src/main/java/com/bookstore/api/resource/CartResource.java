@@ -1,8 +1,8 @@
 package com.bookstore.api.resource;
 
-import com.bookstore.api.datastore.BookData;
-import com.bookstore.api.datastore.CartData;
-import com.bookstore.api.datastore.CustomerData;
+import com.bookstore.api.data.BookData;
+import com.bookstore.api.data.CartData;
+import com.bookstore.api.data.CustomerData;
 import com.bookstore.api.exception.CartNotFoundException;
 import com.bookstore.api.exception.CustomerNotFoundException;
 import com.bookstore.api.exception.InvalidInputException;
@@ -24,6 +24,14 @@ import java.util.Optional;
 public class CartResource {
     private static final Logger LOGGER = LoggerFactory.getLogger(CartResource.class);
 
+
+    /**
+     * Adds an item to the cart for a specific customer.
+     *
+     * @param customerId the ID of the customer
+     * @param item       the cart item to add
+     * @return the updated cart
+     */
     @POST
     @Path("/items")
     public Response addItemToCart(@PathParam("customerId") int customerId, CartItem item) {
@@ -70,6 +78,13 @@ public class CartResource {
         return Response.status(Response.Status.CREATED).entity(updatedCart).build();
     }
 
+    /**
+     * Retrieves the cart for a specific customer.
+     *
+     * @param customerId the ID of the customer
+     * @return the cart for the customer
+     */
+
     @GET
     public Response getCart(@PathParam("customerId") int customerId) {
         LOGGER.info("Retrieving cart for customer ID: {}", customerId);
@@ -84,6 +99,14 @@ public class CartResource {
         return Response.ok(cart).build();
     }
 
+    /**
+     * Updates an item in the cart for a specific customer.
+     *
+     * @param customerId the ID of the customer
+     * @param bookId     the ID of the book
+     * @param item       the updated cart item
+     * @return the updated cart
+     */
     @PUT
     @Path("/items/{bookId}")
     public Response updateItemInCart(@PathParam("customerId") int customerId, @PathParam("bookId") int bookId, CartItem item) {
@@ -128,6 +151,14 @@ public class CartResource {
         LOGGER.info("Updated item in cart for customer ID: {}, updated cart: {}", customerId, updatedCart);
         return Response.ok(updatedCart).build();
     }
+
+    /**
+     * Removes an item from the cart for a specific customer.
+     *
+     * @param customerId the ID of the customer
+     * @param bookId     the ID of the book
+     * @return a response indicating the result of the removal
+     */
 
     @DELETE
     @Path("/items/{bookId}")

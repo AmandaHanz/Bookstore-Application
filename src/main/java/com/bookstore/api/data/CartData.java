@@ -1,4 +1,4 @@
-package com.bookstore.api.datastore;
+package com.bookstore.api.data;
 
 import com.bookstore.api.exception.InvalidInputException;
 import com.bookstore.api.model.Cart;
@@ -19,10 +19,12 @@ public class CartData {
         return cart;
     }
 
+    //method to find a cart
     public static Cart findCartByCustomerId(int customerId) {
         return carts.get(customerId);
     }
 
+    //method to delete a cart
     public static void deleteCart(int customerId) {
         carts.remove(customerId);
     }

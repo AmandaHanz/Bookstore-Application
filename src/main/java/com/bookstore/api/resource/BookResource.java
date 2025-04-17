@@ -1,7 +1,7 @@
 package com.bookstore.api.resource;
 
-import com.bookstore.api.datastore.AuthorData;
-import com.bookstore.api.datastore.BookData;
+import com.bookstore.api.data.AuthorData;
+import com.bookstore.api.data.BookData;
 import com.bookstore.api.exception.BookNotFoundException;
 import com.bookstore.api.exception.InvalidInputException;
 import com.bookstore.api.model.Book;
@@ -19,6 +19,12 @@ import java.util.List;
 public class BookResource {
     private static final Logger LOGGER = LoggerFactory.getLogger(BookResource.class);
 
+    /**
+     * Creates a new book.
+     *
+     * @param book the book to create
+     * @return the created book
+     */
     @POST
     public Response createBook(Book book) {
         LOGGER.info("Creating book: {}", book);
@@ -39,12 +45,25 @@ public class BookResource {
         return Response.status(Response.Status.CREATED).entity(createdBook).build();
     }
 
+    /**
+     * Retrieves all books.
+     *
+     * @return a list of books
+     */
+
     @GET
     public Response getAllBooks() {
         LOGGER.info("Retrieving all books");
         List<Book> books = BookData.getAllBooks();
         return Response.ok(books).build();
     }
+
+    /**
+     * Retrieves a book by ID.
+     *
+     * @param id the ID of the book
+     * @return the book with the specified ID
+     */
 
     @GET
     @Path("/{id}")
@@ -56,6 +75,14 @@ public class BookResource {
         }
         return Response.ok(book).build();
     }
+
+    /**
+     * Updates an existing book.
+     *
+     * @param id   the ID of the book to update
+     * @param book the updated book data
+     * @return the updated book
+     */
 
     @PUT
     @Path("/{id}")
@@ -82,6 +109,13 @@ public class BookResource {
         LOGGER.info("Updated book with ID: {}", id);
         return Response.ok(updatedBook).build();
     }
+
+    /**
+     * Deletes a book by ID.
+     *
+     * @param id the ID of the book to delete
+     * @return a response indicating the result of the deletion
+     */
 
     @DELETE
     @Path("/{id}")

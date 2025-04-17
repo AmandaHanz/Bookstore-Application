@@ -1,7 +1,6 @@
-package com.bookstore.api.datastore;
+package com.bookstore.api.data;
 
 import com.bookstore.api.model.Author;
-import com.bookstore.api.model.Book;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -21,19 +20,23 @@ public class AuthorData {
         return author;
     }
 
+    // Method to find an author by ID
     public static Author findAuthorById(int id) {
         return authors.get(id);
     }
 
+    // Method to get all authors
     public static List<Author> getAllAuthors() {
         return new ArrayList<>(authors.values());
     }
 
+    // Method to update an author
     public static Author updateAuthor(Author author) {
         authors.put(author.getId(), author);
         return author;
     }
 
+    // Method to delete an author
     public static void deleteAuthor(int id) {
         // Check if author has associated books
         boolean hasBooks = BookData.getAllBooks().stream()

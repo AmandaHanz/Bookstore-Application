@@ -10,6 +10,11 @@ import javax.ws.rs.ext.Provider;
 import java.util.HashMap;
 import java.util.Map;
 
+
+/**
+ * Exception mapper for OutOfStockException.
+ * Converts the exception to a JSON response with a 400 status code.
+ */
 @Provider
 public class OutOfStockExceptionMapper implements ExceptionMapper<OutOfStockException> {
     @Override
