@@ -71,7 +71,9 @@ public class CartResource {
         if (existingItem.isPresent()) {
             existingItem.get().setQuantity(newQuantity);
         } else {
-            cart.getItems().add(new CartItem(item.getBookId(), item.getQuantity()));
+//            cart.getItems().add(new CartItem(item.getBookId(), item.getQuantity()));
+            cart.addOrUpdateItem(new CartItem(item.getBookId(), newQuantity));
+
         }
         Cart updatedCart = CartData.addCart(cart);
         LOGGER.info("Added item to cart for customer ID: {}, updated cart: {}", customerId, updatedCart);

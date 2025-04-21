@@ -5,6 +5,7 @@ import com.bookstore.api.data.CustomerData;
 import com.bookstore.api.data.OrderData;
 import com.bookstore.api.exception.CartNotFoundException;
 import com.bookstore.api.exception.CustomerNotFoundException;
+import com.bookstore.api.exception.OrderNotFoundException;
 import com.bookstore.api.model.Cart;
 import com.bookstore.api.model.CartItem;
 import com.bookstore.api.model.Order;
@@ -100,7 +101,7 @@ public class OrderResource {
 
         Order order = OrderData.findOrderById(customerId, orderId);
         if (order == null) {
-            return Response.status(Response.Status.NOT_FOUND).entity("Order not found").build();
+            throw new OrderNotFoundException("Order with ID " + orderId + " does not exist.");
         }
 
         return Response.ok(order).build();

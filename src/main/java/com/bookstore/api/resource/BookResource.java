@@ -40,6 +40,21 @@ public class BookResource {
         if (AuthorData.findAuthorById(book.getAuthorId()) == null) {
             throw new InvalidInputException("Invalid book data: author with ID " + book.getAuthorId() + " does not exist.");
         }
+        int currentYear = java.time.Year.now().getValue();
+        if (book.getPublicationYear() > currentYear) {
+            throw new InvalidInputException("Invalid book data: publication year cannot be in the future.");
+        }
+
+        // Validate price
+        if (book.getPrice() <= 0) {
+            throw new InvalidInputException("Invalid book data: price must be greater than zero.");
+        }
+
+        // Validate stock
+        if (book.getStock() <= 0) {
+            throw new InvalidInputException("Invalid book data: stock must be greater than zero.");
+        }
+
         Book createdBook = BookData.addBook(book);
         LOGGER.info("Created book with ID: {}", createdBook.getId());
         return Response.status(Response.Status.CREATED).entity(createdBook).build();
@@ -92,6 +107,22 @@ public class BookResource {
         if (existingBook == null) {
             throw new BookNotFoundException("Book with ID " + id + " does not exist.");
         }
+
+        int currentYear = java.time.Year.now().getValue();
+        if (book.getPublicationYear() > currentYear) {
+            throw new InvalidInputException("Invalid book data: publication year cannot be in the future.");
+        }
+
+        // Validate price
+        if (book.getPrice() <= 0) {
+            throw new InvalidInputException("Invalid book data: price must be greater than zero.");
+        }
+
+        // Validate stock
+        if (book.getStock() <= 0) {
+            throw new InvalidInputException("Invalid book data: stock must be greater than zero.");
+        }
+
         // Update fields
         book.setId(id);
         if (book.getTitle() == null || book.getTitle().isEmpty() ||

@@ -38,6 +38,17 @@ public class Cart {
         this.items = items != null ? new ArrayList<>(items) : new ArrayList<>();
     }
 
+    public void addOrUpdateItem(CartItem item) {
+        for (CartItem existing : items) {
+            if (existing.getBookId() == item.getBookId()) {
+                existing.setQuantity(item.getQuantity());
+                return;
+            }
+        }
+        items.add(item);
+    }
+
+
     // toString for debugging
     @Override
     public String toString() {
